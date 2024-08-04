@@ -1,0 +1,32 @@
+{
+  "name": "hashconverter",
+  "version": "1.0.0",
+  "description": "",
+  "main": "hashconverter.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "tsc && node ./dist/hashconverter.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/hitalloazevedo/hashconverter.git"
+  },
+  "author": "hitallo azevedo",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/hitalloazevedo/hashconverter/issues"
+  },
+  "homepage": "https://github.com/hitalloazevedo/hashconverter#readme",
+  "dependencies": {
+    "bs58check": "^4.0.0",
+    "figlet": "^1.7.0",
+    "readline-sync": "^1.4.10",
+    "tsc": "^2.0.4",
+    "typescript": "^5.5.4"
+  },
+  "devDependencies": {
+    "@types/figlet": "^1.5.8",
+    "@types/node": "^22.1.0",
+    "@types/readline-sync": "^1.4.8"
+  }
+}
