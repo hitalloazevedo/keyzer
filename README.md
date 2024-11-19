@@ -1,5 +1,5 @@
 
-# Hash converter
+# Keyzer
 A simple and secure converter that translates 256-bit hexadecimal bitcoin private key to WIF key (Wallet Import Format). 
 
 Putting your private key on online sites can be a mistake, you never know if they store your key, so be careful! This tool is completely offline, to ensure your safety. You can check the source code anytime!
