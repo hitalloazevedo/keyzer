@@ -13,8 +13,10 @@ describe("analyzeKey", () => {
   });
 
   it("detects hex and converts it, honouring the options", () => {
-    assert.deepEqual(analyzeKey(KEY), {
+    const result = analyzeKey(KEY);
+    assert.deepEqual(result, {
       kind: "hex", hex: KEY, padded: 0, wif: WIF, compressed: true, network: "mainnet",
+      addresses: { p2pkh: "1LoVGDgRs9hTfTNJNuXKSpywcbdvwRXpmK", p2wpkh: "bc1qmy63mjadtw8nhzl69ukdepwzsyvv4yex5qlmkd" },
     });
     const testnet = analyzeKey(KEY, { network: "testnet", compressed: false });
     assert.equal(testnet.kind === "hex" && testnet.wif, "91gGn1HgSap6CbU12F6z3pJri26xzp7Ay1VW6NHCoEayNXwRpu2");
@@ -32,6 +34,7 @@ describe("analyzeKey", () => {
   it("detects a WIF and ignores the hex->WIF options", () => {
     assert.deepEqual(analyzeKey(` ${WIF} `, { network: "testnet", compressed: false }), {
       kind: "wif", hex: KEY, compressed: true, network: "mainnet",
+      addresses: { p2pkh: "1LoVGDgRs9hTfTNJNuXKSpywcbdvwRXpmK", p2wpkh: "bc1qmy63mjadtw8nhzl69ukdepwzsyvv4yex5qlmkd" },
     });
   });
 

@@ -1,3 +1,4 @@
+import { deriveAddresses, type Addresses } from "./address.js";
 import { KeyzerError, type KeyzerErrorCode } from "./errors.js";
 import { normalizeHexKey, stripHexDecorations } from "./hex.js";
 import { hexToWif, isWif, wifToHex, type Network, type WifOptions } from "./wif.js";
@@ -5,8 +6,16 @@ import { hexToWif, isWif, wifToHex, type Network, type WifOptions } from "./wif.
 export type Analysis =
   | { kind: "empty" }
   | { kind: "error"; code: KeyzerErrorCode; message: string }
-  | { kind: "wif"; hex: string; compressed: boolean; network: Network }
-  | { kind: "hex"; hex: string; padded: number; wif: string; compressed: boolean; network: Network };
+  | { kind: "wif"; hex: string; compressed: boolean; network: Network; addresses: Addresses }
+  | {
+      kind: "hex";
+      hex: string;
+      padded: number;
+      wif: string;
+      compressed: boolean;
+      network: Network;
+      addresses: Addresses;
+    };
 
 /** Shape of a WIF: starts with 5/K/L (mainnet) or 9/c (testnet), 51-52 Base58 characters. */
 const LOOKS_LIKE_WIF = /^[5KLc9][1-9A-HJ-NP-Za-km-z]{50,51}$/;
@@ -25,7 +34,10 @@ export function analyzeKey(input: string, options: WifOptions = {}): Analysis {
   if (text === "") return { kind: "empty" };
 
   try {
-    if (isWif(text)) return { kind: "wif", ...wifToHex(text) };
+    if (isWif(text)) {
+      const decoded = wifToHex(text);
+      return { kind: "wif", ...decoded, addresses: deriveAddresses(decoded.hex, decoded) };
+    }
 
     // Not a valid WIF. If it still looks like one (e.g. a typo broke the checksum),
     // report the WIF problem instead of a confusing "not hexadecimal" message.
@@ -33,7 +45,9 @@ export function analyzeKey(input: string, options: WifOptions = {}): Analysis {
 
     const hex = normalizeHexKey(text);
     const padded = hex.length - stripHexDecorations(text).length;
-    return { kind: "hex", hex, padded, wif: hexToWif(hex, { compressed, network }), compressed, network };
+    const wif = hexToWif(hex, { compressed, network });
+    const addresses = deriveAddresses(hex, { compressed, network });
+    return { kind: "hex", hex, padded, wif, compressed, network, addresses };
   } catch (error) {
     if (!(error instanceof KeyzerError)) throw error;
     if (error.code === "EMPTY") return { kind: "empty" };

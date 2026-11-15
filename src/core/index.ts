@@ -1,6 +1,7 @@
 export { KeyzerError, type KeyzerErrorCode } from "./errors.js";
 export { CURVE_ORDER, normalizeHexKey } from "./hex.js";
 export { analyzeKey, type Analysis } from "./analyze.js";
+export { deriveAddresses, type Addresses } from "./address.js";
 export {
   hexToWif,
   wifToHex,
