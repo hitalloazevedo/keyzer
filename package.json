@@ -25,8 +25,11 @@
   "scripts": {
     "build": "tsc",
     "start": "npm run build && node dist/cli/index.js",
-    "test": "npm run build && node --test \"dist/**/*.test.js\"",
-    "prepublishOnly": "npm test"
+    "test": "npm run build && npm run typecheck:web && node --test \"dist/**/*.test.js\"",
+    "prepublishOnly": "npm test",
+    "build:web": "vite build --config web/vite.config.ts && node scripts/finalize-web.mjs",
+    "dev:web": "vite --config web/vite.config.ts",
+    "typecheck:web": "tsc -p web/tsconfig.json"
   },
   "repository": {
     "type": "git",
@@ -44,6 +47,8 @@
   },
   "devDependencies": {
     "@types/node": "^22.0.0",
-    "typescript": "^5.9.0"
+    "typescript": "^5.9.0",
+    "vite": "^8.3.8",
+    "vite-plugin-singlefile": "^2.3.4"
   }
 }

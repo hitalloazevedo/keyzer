@@ -1,0 +1,94 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <!-- The policy below is filled in at build time by scripts/finalize-web.mjs: it blocks all network access. -->
+    <meta http-equiv="Content-Security-Policy" content="__CSP__" />
+    <meta name="referrer" content="no-referrer" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="color-scheme" content="light dark" />
+    <title>Keyzer · Bitcoin private key converter (offline)</title>
+    <link
+      rel="icon"
+      href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90'%3E%F0%9F%94%91%3C/text%3E%3C/svg%3E"
+    />
+  </head>
+  <body>
+    <div class="page">
+      <header class="top">
+        <h1><span aria-hidden="true">🔑</span> Keyzer</h1>
+        <button id="lang" class="chip" type="button" aria-label="Language / Idioma">PT</button>
+      </header>
+      <p id="tagline" class="tagline"></p>
+
+      <div id="net-badge" class="badge" role="status"></div>
+
+      <main class="card">
+        <label for="key-input" id="key-label" class="field-label"></label>
+        <div class="input-row">
+          <input
+            id="key-input"
+            type="password"
+            autocomplete="off"
+            autocapitalize="off"
+            autocorrect="off"
+            spellcheck="false"
+            data-1p-ignore
+            data-lpignore="true"
+            data-bwignore
+            inputmode="text"
+          />
+          <button id="toggle" class="btn secondary" type="button"></button>
+        </div>
+
+        <p id="status" class="status" role="status" aria-live="polite"></p>
+
+        <section id="result" class="result" hidden>
+          <div class="result-head">
+            <span id="result-label" class="field-label"></span>
+          </div>
+          <div class="result-row">
+            <output id="result-value" class="mono value"></output>
+            <button id="copy" class="btn primary" type="button"></button>
+          </div>
+          <p id="padded-warning" class="warning" hidden></p>
+          <p id="clipboard-note" class="note" hidden>
+            <span id="clipboard-note-text"></span>
+            <button id="clear-clipboard" class="link" type="button"></button>
+          </p>
+          <dl id="details" class="details"></dl>
+        </section>
+
+        <details class="advanced">
+          <summary id="advanced-summary"></summary>
+          <p id="advanced-note" class="note"></p>
+          <fieldset>
+            <legend id="network-legend"></legend>
+            <label class="choice"><input type="radio" name="network" value="mainnet" checked /> <span id="net-mainnet"></span></label>
+            <label class="choice"><input type="radio" name="network" value="testnet" /> <span id="net-testnet"></span></label>
+          </fieldset>
+          <label class="choice">
+            <input id="compressed" type="checkbox" checked />
+            <span><span id="compressed-label"></span><small id="compressed-help"></small></span>
+          </label>
+        </details>
+
+        <button id="clear-all" class="btn danger" type="button"></button>
+      </main>
+
+      <details class="safe">
+        <summary id="safe-title"></summary>
+        <div id="safe-body"></div>
+      </details>
+
+      <footer class="foot">
+        <p id="tips"></p>
+        <p>
+          Keyzer v<span id="version"></span> ·
+          <a id="source" href="https://github.com/hitalloazevedo/keyzer" target="_blank" rel="noopener noreferrer"></a>
+        </p>
+      </footer>
+    </div>
+    <script type="module" src="./src/main.ts"></script>
+  </body>
+</html>
