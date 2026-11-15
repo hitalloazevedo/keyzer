@@ -24,7 +24,7 @@ $ npm start
  | ' // _ \ | | |_  / _ \ '__|
  | . \  __/ |_| |/ /  __/ |
  |_|\_\___|\__, /___\___|_|
-           |___/  v1.0.0
+           |___/  v1.1.0
 ============================================================
 Offline: nothing is sent anywhere. Leave the key empty to quit.
 
@@ -34,6 +34,9 @@ Detected: hex private key
   Network : mainnet
   Public key format: compressed
   WIF     : KwdMAjGmerYanjeui5SHS7JkmpZvVipYvB2LJGU1ZxJwYvP98617
+  Address : 1LoVGDgRs9hTfTNJNuXKSpywcbdvwRXpmK  (legacy)
+  SegWit  : bc1qmy63mjadtw8nhzl69ukdepwzsyvv4yex5qlmkd  (native SegWit)
+  Compare an address with your wallet to confirm this is the right key.
 ```
 
 > The key above is a public test vector from the [Bitcoin wiki](https://en.bitcoin.it/wiki/Wallet_import_format). **Never use it for real funds.**
@@ -43,7 +46,7 @@ Detected: hex private key
 Pasting a private key into a "free online converter" means trusting a stranger's server with your money. Keyzer exists so you don't have to:
 
 - **Offline by design.** The code makes no network requests, and the web page ships with a Content-Security-Policy that makes your browser block every connection. Turn your Wi-Fi off and it keeps working.
-- **Small enough to audit.** A few hundred lines of TypeScript and just two dependencies, both audited and widely used: [`@scure/base`](https://github.com/paulmillr/scure-base) and [`@noble/hashes`](https://github.com/paulmillr/noble-hashes).
+- **Small enough to audit.** A few hundred lines of TypeScript and just three dependencies, all audited and widely used: [`@scure/base`](https://github.com/paulmillr/scure-base), [`@noble/hashes`](https://github.com/paulmillr/noble-hashes) and [`@noble/curves`](https://github.com/paulmillr/noble-curves).
 - **Careful with your secret.** The key is asked for interactively and hidden while you type, so it never ends up in your shell history or on screen.
 - **Strict validation.** Checksums are verified, typos are rejected, and keys outside the valid secp256k1 range are refused instead of silently converted.
 - **Tested.** Covered by tests against reference vectors, cross-checked with an independent implementation.
@@ -66,7 +69,7 @@ Pasting a private key into a "free online converter" means trusting a stranger's
 
 ### Option A: the web page (no coding, one file)
 
-1. **[Download `keyzer.html`](https://github.com/hitalloazevedo/keyzer/releases/latest/download/keyzer.html)** (about 30 KB) from the [latest release](https://github.com/hitalloazevedo/keyzer/releases/latest).
+1. **[Download `keyzer.html`](https://github.com/hitalloazevedo/keyzer/releases/latest/download/keyzer.html)** (about 70 KB) from the [latest release](https://github.com/hitalloazevedo/keyzer/releases/latest).
 2. **Turn off your Wi-Fi.**
 3. Double-click the file. It opens in your browser. Paste your key and copy the result.
 
@@ -129,7 +132,7 @@ Some tools drop the leading zeros of a hex key. A private key is always 64 hex c
 No. Keyzer supports Bitcoin mainnet and testnet only.
 
 **Does it show me the address for my key?**
-Not yet; it's planned.
+Yes. It shows the legacy address (starts with `1`) and, for compressed keys, the native SegWit one (starts with `bc1q`). Compare one of them with your wallet to confirm it's the right key. Wrapped SegWit (`3…`) and Taproot (`bc1p…`) addresses are not shown.
 
 **Is this safe for large amounts?**
 Keyzer cannot protect you from malware on your computer, clipboard hijackers, or someone looking at your screen. For significant funds, use it on a clean, offline machine and clear your terminal afterwards. See [SECURITY.md](SECURITY.md).
@@ -174,7 +177,7 @@ Errors are thrown as `KeyzerError` with a stable `code` (`INVALID_HEX`, `TOO_LON
 - [x] Hidden input, checksum and range validation, test suite, CI
 - [x] Single-file graphical app (`keyzer.html`) that works offline
 - [x] Downloadable releases with published SHA-256 checksums and build provenance
-- [ ] Show the Bitcoin address derived from the key, to confirm it's the right wallet
+- [x] Show the Bitcoin address derived from the key, to confirm it's the right wallet
 - [ ] `npx keyzer` via npm
 
 ## Security

@@ -12,7 +12,7 @@ Include what you found, how to reproduce it, and the impact you see. You'll get 
 - Makes no network requests.
 - Asks for the key interactively (hidden by default), so it doesn't land in shell history or on screen.
 - Validates checksums and the valid private key range instead of silently converting bad input.
-- Keeps dependencies to a minimum: [`@scure/base`](https://github.com/paulmillr/scure-base) and [`@noble/hashes`](https://github.com/paulmillr/noble-hashes).
+- Keeps dependencies to a minimum: [`@scure/base`](https://github.com/paulmillr/scure-base), [`@noble/hashes`](https://github.com/paulmillr/noble-hashes) and [`@noble/curves`](https://github.com/paulmillr/noble-curves).
 
 ## What Keyzer cannot protect you from
 

@@ -24,7 +24,7 @@ $ npm start
  | ' // _ \ | | |_  / _ \ '__|
  | . \  __/ |_| |/ /  __/ |
  |_|\_\___|\__, /___\___|_|
-           |___/  v1.0.0
+           |___/  v1.1.0
 ============================================================
 Offline: nothing is sent anywhere. Leave the key empty to quit.
 
@@ -34,6 +34,9 @@ Detected: hex private key
   Network : mainnet
   Public key format: compressed
   WIF     : KwdMAjGmerYanjeui5SHS7JkmpZvVipYvB2LJGU1ZxJwYvP98617
+  Address : 1LoVGDgRs9hTfTNJNuXKSpywcbdvwRXpmK  (legacy)
+  SegWit  : bc1qmy63mjadtw8nhzl69ukdepwzsyvv4yex5qlmkd  (native SegWit)
+  Compare an address with your wallet to confirm this is the right key.
 ```
 
 > A chave acima é um vetor de teste público da [wiki do Bitcoin](https://en.bitcoin.it/wiki/Wallet_import_format). **Nunca use para fundos reais.**
@@ -43,7 +46,7 @@ Detected: hex private key
 Colar uma chave privada em um "conversor online grátis" é confiar seu dinheiro ao servidor de um desconhecido. O Keyzer existe para que você não precise:
 
 - **Offline por design.** O código não faz nenhuma requisição de rede, e a página web vem com uma Content-Security-Policy que faz o navegador bloquear qualquer conexão. Desligue o Wi-Fi e ela continua funcionando.
-- **Pequeno o bastante para auditar.** Algumas centenas de linhas de TypeScript e apenas duas dependências, ambas auditadas e amplamente usadas: [`@scure/base`](https://github.com/paulmillr/scure-base) e [`@noble/hashes`](https://github.com/paulmillr/noble-hashes).
+- **Pequeno o bastante para auditar.** Algumas centenas de linhas de TypeScript e apenas três dependências, todas auditadas e amplamente usadas: [`@scure/base`](https://github.com/paulmillr/scure-base), [`@noble/hashes`](https://github.com/paulmillr/noble-hashes) e [`@noble/curves`](https://github.com/paulmillr/noble-curves).
 - **Cuidado com o seu segredo.** A chave é pedida de forma interativa e fica oculta enquanto você digita, então não vai para o histórico do terminal nem aparece na tela.
 - **Validação rigorosa.** O checksum é verificado, erros de digitação são rejeitados e chaves fora do intervalo válido da secp256k1 são recusadas em vez de convertidas em silêncio.
 - **Testado.** Coberto por testes com vetores de referência, conferidos contra uma implementação independente.
@@ -66,7 +69,7 @@ Colar uma chave privada em um "conversor online grátis" é confiar seu dinheiro
 
 ### Opção A: a página web (sem programar, um arquivo só)
 
-1. **[Baixe o `keyzer.html`](https://github.com/hitalloazevedo/keyzer/releases/latest/download/keyzer.html)** (cerca de 30 KB) na [última release](https://github.com/hitalloazevedo/keyzer/releases/latest).
+1. **[Baixe o `keyzer.html`](https://github.com/hitalloazevedo/keyzer/releases/latest/download/keyzer.html)** (cerca de 70 KB) na [última release](https://github.com/hitalloazevedo/keyzer/releases/latest).
 2. **Desligue o Wi-Fi.**
 3. Dê dois cliques no arquivo. Ele abre no navegador. Cole sua chave e copie o resultado.
 
@@ -129,7 +132,7 @@ Algumas ferramentas cortam os zeros à esquerda de uma chave hex. Uma chave priv
 Não. O Keyzer suporta apenas Bitcoin (mainnet e testnet).
 
 **Ele mostra o endereço da minha chave?**
-Ainda não; está planejado.
+Sim. Ele mostra o endereço legado (começa com `1`) e, para chaves comprimidas, o SegWit nativo (começa com `bc1q`). Compare um deles com a sua carteira para confirmar que é a chave certa. Endereços SegWit embrulhado (`3…`) e Taproot (`bc1p…`) não são exibidos.
 
 **É seguro para valores altos?**
 O Keyzer não protege contra malware no seu computador, programas que trocam o conteúdo da área de transferência ou alguém olhando sua tela. Para valores relevantes, use numa máquina limpa e offline e limpe o terminal depois. Veja o [SECURITY.md](SECURITY.md).
@@ -174,7 +177,7 @@ Os erros são lançados como `KeyzerError`, com um `code` estável (`INVALID_HEX
 - [x] Entrada oculta, validação de checksum e intervalo, testes, CI
 - [x] App gráfico em arquivo único (`keyzer.html`) que funciona offline
 - [x] Releases para download, com checksums SHA-256 publicados e proveniência do build
-- [ ] Mostrar o endereço Bitcoin derivado da chave, para confirmar que é a carteira certa
+- [x] Mostrar o endereço Bitcoin derivado da chave, para confirmar que é a carteira certa
 - [ ] `npx keyzer` pelo npm
 
 ## Segurança
