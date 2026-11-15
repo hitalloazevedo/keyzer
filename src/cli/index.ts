@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 import { readFileSync } from "node:fs";
 import { parseArgs } from "node:util";
-import { analyzeKey, type Network } from "../core/index.js";
+import { analyzeKey, type Addresses, type Network } from "../core/index.js";
 import { ask } from "./prompt.js";
 
 const { version } = JSON.parse(
@@ -58,6 +58,12 @@ function parseOptions() {
   }
 }
 
+function printAddresses({ p2pkh, p2wpkh }: Addresses): void {
+  console.log(`  Address : ${p2pkh}  ${dim("(legacy)")}`);
+  if (p2wpkh) console.log(`  SegWit  : ${p2wpkh}  ${dim("(native SegWit)")}`);
+  console.log(dim("  Compare an address with your wallet to confirm this is the right key."));
+}
+
 function convert(input: string, opts: { compressed: boolean; network: Network }): boolean {
   const result = analyzeKey(input, opts);
   const format = (compressed: boolean) => (compressed ? "compressed" : "uncompressed");
@@ -73,6 +79,7 @@ function convert(input: string, opts: { compressed: boolean; network: Network })
       console.log(`  Hex     : ${bold(result.hex)}`);
       console.log(`  Network : ${result.network}`);
       console.log(`  Public key format: ${format(result.compressed)}`);
+      printAddresses(result.addresses);
       return true;
     case "hex":
       console.log(green("Detected: hex private key"));
@@ -84,6 +91,7 @@ function convert(input: string, opts: { compressed: boolean; network: Network })
       console.log(`  Network : ${result.network}`);
       console.log(`  Public key format: ${format(result.compressed)}`);
       console.log(`  WIF     : ${bold(result.wif)}`);
+      printAddresses(result.addresses);
       return true;
   }
 }
