@@ -178,7 +178,7 @@ Errors are thrown as `KeyzerError` with a stable `code` (`INVALID_HEX`, `TOO_LON
 - [x] Single-file graphical app (`keyzer.html`) that works offline
 - [x] Downloadable releases with published SHA-256 checksums and build provenance
 - [x] Show the Bitcoin address derived from the key, to confirm it's the right wallet
-- [ ] `npx keyzer` via npm
+- [ ] `npx @hitalloazevedo/keyzer` via npm
 
 ## Security
 

@@ -178,7 +178,7 @@ Os erros são lançados como `KeyzerError`, com um `code` estável (`INVALID_HEX
 - [x] App gráfico em arquivo único (`keyzer.html`) que funciona offline
 - [x] Releases para download, com checksums SHA-256 publicados e proveniência do build
 - [x] Mostrar o endereço Bitcoin derivado da chave, para confirmar que é a carteira certa
-- [ ] `npx keyzer` pelo npm
+- [ ] `npx @hitalloazevedo/keyzer` pelo npm
 
 ## Segurança
 
