@@ -29,6 +29,7 @@ const $ = {
   clipboardNoteText: el("clipboard-note-text"),
   clearClipboard: el<HTMLButtonElement>("clear-clipboard"),
   details: el("details"),
+  addressHint: el("address-hint"),
   advancedSummary: el("advanced-summary"),
   advancedNote: el("advanced-note"),
   networkLegend: el("network-legend"),
@@ -151,6 +152,9 @@ function renderResult(analysis: Analysis): void {
   }
   addDetail(s.detailNetwork, network);
   addDetail(s.detailFormat, format);
+  addDetail(s.detailAddressLegacy, analysis.addresses.p2pkh, true);
+  if (analysis.addresses.p2wpkh) addDetail(s.detailAddressSegwit, analysis.addresses.p2wpkh, true);
+  $.addressHint.textContent = s.addressHint;
   $.result.hidden = false;
 }
 

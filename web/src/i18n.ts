@@ -32,6 +32,9 @@ interface Strings {
   detailNetwork: string;
   detailFormat: string;
   detailHex: string;
+  detailAddressLegacy: string;
+  detailAddressSegwit: string;
+  addressHint: string;
   formatCompressed: string;
   formatUncompressed: string;
   padded: (n: number) => string;
@@ -74,6 +77,9 @@ export const STRINGS: Record<Lang, Strings> = {
     detailNetwork: "Network",
     detailFormat: "Public key",
     detailHex: "Hex (64 characters)",
+    detailAddressLegacy: "Address (legacy)",
+    detailAddressSegwit: "Address (SegWit)",
+    addressHint: "Compare one of these addresses with your wallet to confirm this is the right key.",
     formatCompressed: "Compressed",
     formatUncompressed: "Uncompressed",
     padded: (n) =>
@@ -125,6 +131,9 @@ export const STRINGS: Record<Lang, Strings> = {
     detailNetwork: "Rede",
     detailFormat: "Chave pública",
     detailHex: "Hex (64 caracteres)",
+    detailAddressLegacy: "Endereço (legado)",
+    detailAddressSegwit: "Endereço (SegWit)",
+    addressHint: "Compare um destes endereços com a sua carteira para confirmar que esta é a chave certa.",
     formatCompressed: "Comprimida",
     formatUncompressed: "Não comprimida",
     padded: (n) =>
