@@ -10,7 +10,7 @@ Use it as a **single offline web page** or as a **terminal tool**.
 
 [![CI](https://github.com/hitalloazevedo/keyzer/actions/workflows/ci.yml/badge.svg)](https://github.com/hitalloazevedo/keyzer/actions/workflows/ci.yml)
 [![License: ISC](https://img.shields.io/badge/license-ISC-blue.svg)](LICENSE)
-![Node](https://img.shields.io/badge/node-%E2%89%A520-brightgreen)
+![Node](https://img.shields.io/badge/node-%E2%89%A524-brightgreen)
 
 English · [Português](README.pt-BR.md)
 
@@ -90,7 +90,7 @@ gh attestation verify keyzer.html --repo hitalloazevedo/keyzer
 <details>
 <summary>Prefer to build it yourself?</summary>
 
-1. Install [Node.js](https://nodejs.org) 20 or newer.
+1. Install [Node.js](https://nodejs.org) 24 or newer.
 2. Download this project (**Code → Download ZIP**, then unzip), open a terminal in that folder and run:
    ```bash
    npm ci
