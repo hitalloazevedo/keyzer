@@ -105,12 +105,20 @@ gh attestation verify keyzer.html --repo hitalloazevedo/keyzer
 
 ### Option B: the terminal
 
+With [Node.js](https://nodejs.org) 24 or newer, run it straight from npm, nothing to clone:
+
+```bash
+npx @hitalloazevedo/keyzer
+```
+
+Or from a clone of this repository:
+
 ```bash
 npm install
 npm start
 ```
 
-Paste your key (hex or WIF) and press Enter. Options go after `--`, for example `npm start -- --testnet`:
+Paste your key (hex or WIF) and press Enter. Options go after the command (after `--` with `npm start`), for example `npx @hitalloazevedo/keyzer --testnet`:
 
 ```text
 --uncompressed   Hex -> WIF for an uncompressed public key (WIF starts with 5 / 9)
@@ -170,15 +178,6 @@ wifToHex("KwdMAj…8617");                        // { hex, compressed: true, ne
 ```
 
 Errors are thrown as `KeyzerError` with a stable `code` (`INVALID_HEX`, `TOO_LONG`, `OUT_OF_RANGE`, `INVALID_WIF`, `EMPTY`).
-
-## Roadmap
-
-- [x] Hex ⇄ WIF, mainnet/testnet, compressed/uncompressed
-- [x] Hidden input, checksum and range validation, test suite, CI
-- [x] Single-file graphical app (`keyzer.html`) that works offline
-- [x] Downloadable releases with published SHA-256 checksums and build provenance
-- [x] Show the Bitcoin address derived from the key, to confirm it's the right wallet
-- [ ] `npx @hitalloazevedo/keyzer` via npm
 
 ## Security
 
