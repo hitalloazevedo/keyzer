@@ -1,5 +1,5 @@
 {
-  "name": "keyzer",
+  "name": "@hitalloazevedo/keyzer",
   "version": "1.1.0",
   "description": "Offline converter between Bitcoin private keys in hex and WIF (Wallet Import Format).",
   "keywords": [
@@ -30,6 +30,9 @@
     "build:web": "vite build --config web/vite.config.ts && node scripts/finalize-web.mjs",
     "dev:web": "vite --config web/vite.config.ts",
     "typecheck:web": "tsc -p web/tsconfig.json"
+  },
+  "publishConfig": {
+    "access": "public"
   },
   "repository": {
     "type": "git",
