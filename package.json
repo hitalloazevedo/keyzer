@@ -1,32 +1,45 @@
 {
-  "name": "hashconverter",
+  "name": "keyzer",
   "version": "1.0.0",
-  "description": "",
-  "main": "hashconverter.js",
+  "description": "Offline converter between Bitcoin private keys in hex and WIF (Wallet Import Format).",
+  "keywords": [
+    "bitcoin",
+    "wif",
+    "private-key",
+    "hex",
+    "converter",
+    "offline",
+    "crypto"
+  ],
+  "type": "module",
+  "files": [
+    "dist",
+    "!dist/**/*.test.*"
+  ],
+  "engines": {
+    "node": ">=20"
+  },
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node ./dist/hashconverter.js"
+    "build": "tsc",
+    "test": "npm run build && node --test \"dist/**/*.test.js\"",
+    "prepublishOnly": "npm test"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/hitalloazevedo/hashconverter.git"
+    "url": "git+https://github.com/hitalloazevedo/keyzer.git"
   },
   "author": "hitallo azevedo",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/hitalloazevedo/hashconverter/issues"
+    "url": "https://github.com/hitalloazevedo/keyzer/issues"
   },
-  "homepage": "https://github.com/hitalloazevedo/hashconverter#readme",
+  "homepage": "https://github.com/hitalloazevedo/keyzer#readme",
   "dependencies": {
-    "bs58check": "^4.0.0",
-    "figlet": "^1.7.0",
-    "readline-sync": "^1.4.10",
-    "tsc": "^2.0.4",
-    "typescript": "^5.5.4"
+    "@noble/hashes": "^2.4.0",
+    "@scure/base": "^2.4.0"
   },
   "devDependencies": {
-    "@types/figlet": "^1.5.8",
-    "@types/node": "^22.1.0",
-    "@types/readline-sync": "^1.4.8"
+    "@types/node": "^22.0.0",
+    "typescript": "^5.9.0"
   }
 }
