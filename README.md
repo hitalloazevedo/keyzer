@@ -2,7 +2,7 @@
 
 # 🔑 Keyzer
 
-**Convert a Bitcoin private key between hex and WIF — 100% offline.**
+**Convert a Bitcoin private key between hex and WIF, 100% offline.**
 
 Your wallet gave you 64 hex characters, the other one wants a WIF (or the other way around).
 Keyzer converts it on your own machine, so the key never touches a website.
