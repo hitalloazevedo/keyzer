@@ -1,0 +1,69 @@
+# Publishes a GitHub Release with the single-file app, its SHA-256 checksum and a
+# build-provenance attestation (proof it was built from this repo by this workflow).
+#
+# To release:  1. bump "version" in package.json and commit
+#              2. git tag v<version> && git push origin v<version>
+name: Release
+
+on:
+  push:
+    tags: ["v*"]
+
+permissions:
+  contents: write # create the release
+  id-token: write # sign the attestation
+  attestations: write
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+
+      - uses: actions/setup-node@v7
+        with:
+          node-version: 22
+          cache: npm
+
+      - run: npm ci
+
+      - name: Tag must match package.json version
+        run: |
+          expected="v$(node -p "require('./package.json').version")"
+          if [ "$GITHUB_REF_NAME" != "$expected" ]; then
+            echo "::error::Tag $GITHUB_REF_NAME does not match package.json version ($expected)"
+            exit 1
+          fi
+
+      - run: npm test
+
+      - name: Build keyzer.html
+        run: npm run build:web
+
+      - name: Build must be reproducible (second build gives the same bytes)
+        run: |
+          first="$(sha256sum dist-web/keyzer.html | cut -d' ' -f1)"
+          npm run build:web
+          second="$(sha256sum dist-web/keyzer.html | cut -d' ' -f1)"
+          if [ "$first" != "$second" ]; then
+            echo "::error::Build is not reproducible ($first vs $second)"
+            exit 1
+          fi
+
+      - name: Write checksums
+        working-directory: dist-web
+        run: sha256sum keyzer.html > SHA256SUMS && cat SHA256SUMS
+
+      - uses: actions/attest-build-provenance@v4
+        with:
+          subject-path: dist-web/keyzer.html
+
+      - name: Create release
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          gh release create "$GITHUB_REF_NAME" \
+            dist-web/keyzer.html dist-web/SHA256SUMS \
+            --verify-tag \
+            --title "Keyzer $GITHUB_REF_NAME" \
+            --notes-file .github/release-notes.md
