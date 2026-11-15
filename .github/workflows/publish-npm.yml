@@ -2,8 +2,8 @@
 # so no npm token is stored in GitHub.
 #
 # One-time setup (the package must exist on npm before a trusted publisher can be added):
-#   1. Publish the first version by hand from your machine:  npm login && npm publish
-#   2. On npmjs.com: keyzer -> Settings -> Trusted publisher -> GitHub Actions
+#   1. Publish the first version by hand from your machine:  npm login && npm publish   (the scoped name is public via publishConfig)
+#   2. On npmjs.com: @hitalloazevedo/keyzer -> Settings -> Trusted publisher -> GitHub Actions
 #      owner "hitalloazevedo", repository "keyzer", workflow "publish-npm.yml".
 #
 # To publish a later version: bump "version" in package.json, tag it (see release.yml),
